@@ -71,7 +71,6 @@ def recurrent_hill_decrypt(ciphertext: str, key: str):
     BLOCK_SIZE = INV_KEYS[0].shape[0]
     ciphertext = ciphertext + 'A' * (BLOCK_SIZE - (len(ciphertext) % BLOCK_SIZE)) if len(ciphertext) % BLOCK_SIZE != 0 else ciphertext
     CHUNKS = [np.array([alphabet.index(i) for i in ciphertext[i:i + BLOCK_SIZE].upper()]).reshape(KEYS[0].shape[0], -1) for i in range(0, len(ciphertext), BLOCK_SIZE)]
-    print([[f'{k} = {alphabet.index(k)}' for k in ciphertext[i:i + BLOCK_SIZE].upper()] for i in range(0, len(ciphertext), BLOCK_SIZE)])
     P = ''
     for iter_index in range(len(CHUNKS)):
         if iter_index > 1:
@@ -102,10 +101,10 @@ def main(silent):
         if mode not in ['E', 'e', 'D', 'd']:
             print('Error: Invalid mode selected.')
             sys.exit(1)
-        payload = input('Please enter message/ciphertext: ')
+        payload = input('Please enter message/ciphertext: ').upper()
         print()
         print('**Note: if you\'re using RH alhorythm, separate two keys by comma. Example: HELLO,WORLD **')
-        key = input('Please enter key (in string format): ')
+        key = input('Please enter key (in string format): ').upper()
         if alg.lower() == 'dh':
             fn = (hill_encrypt, hill_decrypt)
         else:
@@ -119,8 +118,8 @@ def main(silent):
             fn = (hill_encrypt, hill_decrypt)
         else:
             fn = (recurrent_hill_encrypt, recurrent_hill_decrypt)
-        payload = silent['payload']
-        key = silent['key']
+        payload = silent['payload'].upper()
+        key = silent['key'].upper()
         if silent['mode'].lower() == 'e':
             print(f'message: {payload}, key: {key} -> {fn[0].__name__} -> {validate_middleware(payload, key, fn[0])}')
         else:
@@ -130,10 +129,10 @@ def main(silent):
 if __name__ == "__main__":
     # Pre-defined variables to avoid spending time on manual input
     NOINPUT = {
-        'enabled': False,  # Leave this false to enable input
-        'algorythm': 'DH',
+        'enabled': True,  # Leave this false to enable input
+        'algorythm': 'rh',
         'mode': 'E',
-        'payload': 'D',
-        'key': 'HEFD'
+        'payload': 'GEORGE',
+        'key': 'fchd,fccb'
     }
     main(NOINPUT)
