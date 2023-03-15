@@ -131,8 +131,8 @@ if __name__ == "__main__":
     NOINPUT = {
         'enabled': True,  # Leave this false to enable input
         'algorythm': 'rh',
-        'mode': 'E',
-        'payload': 'GEORGE',
+        'mode': 'D',
+        'payload': 'MCATMABH',
         'key': 'fchd,fccb'
     }
     main(NOINPUT)
